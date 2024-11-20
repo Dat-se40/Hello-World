@@ -1,0 +1,20 @@
+//Find the largest input dont use Loop /while/for , 0 is condition for stop entering input
+#include <iostream>
+using namespace std;
+
+int largest_input(){
+int max = 0; 
+    int num;
+    
+    auto read_input = [&](auto& read_input_ref) -> void {
+        cin >> num;
+        if (num == 0) return; 
+        if (num > max) max = num; 
+        read_input_ref(read_input_ref);
+    };
+    read_input(read_input); 
+    return max;
+  }
+int main(){
+	cout << largest_input();
+}
