@@ -10,7 +10,8 @@ struct  number {
 int calcVal(number &a){
     return a.tens*10 + a.unit ;
 }
-void findAB( int h , int k  ,number n ,number &a , number &b){
+void findAB( int h , int k  ,number n ){
+    number a , b ; 
     int avg = (h+k)/2;
     bool printed[100][100]={false};
     for ( int iTens = 1 ; iTens <= avg ; iTens++ ){
@@ -29,13 +30,13 @@ void findAB( int h , int k  ,number n ,number &a , number &b){
     cout<<endl;
 }
 int main(){
-    number n,a,b;
+    number n;
     n.val =  ;
     n.tens = n.val/10 ;
     n.unit = n.val%10 ;
     int avgCase1 = n.tens + n.unit ;
     int avgCase2 = n.tens - 1 + n.unit ;
-    if ( avgCase1 % 2 == 0 ) findAB(n.tens , n.unit , n ,a , b);
-    if ( avgCase2 % 2 == 0 ) findAB(n.tens - 1 , n.unit+10 , n ,a , b);
+    if ( avgCase1 % 2 == 0 ) findAB(n.tens , n.unit , n );
+    if ( avgCase2 % 2 == 0 ) findAB(n.tens - 1 , n.unit+10 , n);
 return 0 ;
 }
