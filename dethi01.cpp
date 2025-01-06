@@ -1,42 +1,60 @@
-````cpp
+//Logic code mình làm nha , có mấy cái tên biến là quăng lên Claude đặc lại cho hay ::)) 
+//Nếu bạn có câu hỏi thì hãy inbox mình : https://www.facebook.com/1590laupaylak
+
 #include <iostream>
-#include <iostream>
-using namespace std ;
-struct  number {
-    int tens ;
-    int unit ;
-    int val ;
+using namespace std;
+
+struct Number {
+    int tens;
+    int unit;
+    int value;
 };
-int calcVal(number &a){
-    return a.tens*10 + a.unit ;
+
+int calculateValue(const Number& num) {
+    return num.tens * 10 + num.unit;
 }
-void findAB( int h , int k  ,number n ){
-    number a , b ; 
-    int avg = (h+k)/2;
-    bool printed[100][100]={false};
-    for ( int iTens = 1 ; iTens <= avg ; iTens++ ){
-            b.tens = iTens;
-            a.tens = h - b.tens;
-            b.unit = avg - b.tens ;
-            a.unit = k - b.unit;
-            a.val = calcVal(a);
-            b.val = calcVal(b);
-            bool checked = printed[a.val][b.val] || printed[b.val][a.val] ;
-            if ( ( a.val + b.val ) == n.val && ( a.val > 9 && b.val > 9 ) && checked == false) {
-                    cout<<"("<<a.val<<","<<b.val<<") ";
-                   printed[a.val][b.val] = true ;
-            }
+
+void findPairs(int firstDigit, int lastDigit, const Number& target) {
+    Number first, second;
+    int average = (firstDigit + lastDigit) / 2;
+    bool used[100][100] = {false};
+
+    for (int tens = 1; tens <= average; tens++) {
+        second.tens = tens;
+        first.tens = firstDigit - second.tens;
+        second.unit = average - second.tens;
+        first.unit = lastDigit - second.unit;
+        
+        first.value = calculateValue(first);
+        second.value = calculateValue(second);
+        
+        bool isDuplicate = used[first.value][second.value] || used[second.value][first.value];
+        
+        if ((first.value + second.value) == target.value && 
+            first.value > 9 && second.value > 9 && !isDuplicate) {
+            cout << "(" << first.value << "," << second.value << ") ";
+            used[first.value][second.value] = true;
+        }
     }
-    cout<<endl;
+    cout << endl;
 }
-int main(){
-    number n;
-    n.val =  ;
-    n.tens = n.val/10 ;
-    n.unit = n.val%10 ;
-    int avgCase1 = n.tens + n.unit ;
-    int avgCase2 = n.tens - 1 + n.unit ;
-    if ( avgCase1 % 2 == 0 ) findAB(n.tens , n.unit , n );
-    if ( avgCase2 % 2 == 0 ) findAB(n.tens - 1 , n.unit+10 , n);
-return 0 ;
+
+int main() {
+    Number target;
+    // Add value initialization here
+    target.value = /* your value */;
+    target.tens = target.value / 10;
+    target.unit = target.value % 10;
+
+    int case1Average = target.tens + target.unit;
+    int case2Average = target.tens - 1 + target.unit;
+
+    if (case1Average % 2 == 0) {
+        findPairs(target.tens, target.unit, target);
+    }
+    if (case2Average % 2 == 0) {
+        findPairs(target.tens - 1, target.unit + 10, target);
+    }
+
+    return 0;
 }
