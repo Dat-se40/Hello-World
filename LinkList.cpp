@@ -76,19 +76,73 @@ public:
         delete tail;   
         tail = temp ; 
     }
+    void insert(int val, int pos) {
+        
+        if (pos < 0) {
+            cout << "Invalid position\n";
+            return;
+        }
+        
+        if (pos == 0) {
+            push_front(val);
+            return;
+        }
+        
+        Node* newNode = new Node(val);
+        Node* temp = head;
+        int index = 0;
+    
+        while (temp != NULL && index < pos - 1) {
+            temp = temp->next;
+            index++;
+        }
+        
+        if (temp == NULL) {
+            cout << "Position exceeds list length\n";
+            delete newNode;
+            return;
+        }
+        
+        newNode->next = temp->next;
+        temp->next = newNode;
+        
+        if (newNode->next == NULL) {
+            tail = newNode;
+        }
+    }
+
+    void write(){
+        int size , val ; 
+        
+        cout<<"Enter the size of Linked List ";
+        cin>>size;
+
+        for ( int i = 0 ; i < size ; i++){
+            cout<<"Enter the value of Node["<<i<<"] :\n"; 
+            cin>>val;
+            push_back(val);
+        }
+    }
+
+    int search( int target ){
+        Node* temp  = head;
+        int index = 0 ; 
+
+        while ( temp != NULL){
+            if ( temp ->data == target ) return index;
+            temp = temp->next;
+            index++;
+        }
+        return -1;
+    }
+    
 };
 int main(){
     List ll;
     
-    ll.push_back(0);
-    ll.push_front(1);
-    ll.push_front(2);
-    ll.push_front(3);
+    ll.write();
     ll.print();
-    ll.pop_back();
-    ll.pop_front();
-    ll.print();
-
+    
     system("pause");
     return 0;
 }
